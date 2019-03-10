@@ -1,0 +1,80 @@
+.show .nl-copyright:not(.active) {
+	color: #fff !important;
+}
+.callout a {
+	color: #000;
+	text-decoration: underline;
+}
+.callout a:hover {
+	color: #000;
+}
+.thumbnails li img {
+	width: 60px;
+}
+.dropdown-menu-lg {
+	max-width: none;
+}
+.off-canvas-sidebar[data=blue], .sidebar[data=blue] {
+	background: #3358f4;
+}
+.main-panel {
+	border-top: 2px solid #3358f4;
+}
+
+.btn span {
+	display: inline;
+}
+
+.btn-danger, .btn-danger:hover {
+	background: #fd5d93 !important;
+}
+
+.btn-warning, .btn-warning:hover {
+	background: #ff8d72 !important;
+}
+
+.btn-success, .btn-success:hover {
+	background: #00f2c3 !important;
+}
+
+.form-control:focus {
+	border-color: #3358f4;
+}
+
+.alert-info a {
+	color: #fff !important;
+	font-weight: bold;
+}
+
+.modal .modal-header .close {
+	color: #3358f4;
+}
+
+.table-responsive {
+	overflow: auto;
+}
+
+.error_log {
+	background-color: transparent !important;
+}
+
+.form-group .form-control+.input-group-append .input-group-text, .form-group .form-control+.input-group-prepend .input-group-text, .input-group .form-control+.input-group-append .input-group-text, .input-group .form-control+.input-group-prepend .input-group-text {
+	padding: 10px 18px 10px 18px;
+}
+
+.form-control+.input-group-append .input-group-text {
+	background: transparent !important;
+}
+
+.input-group-append .input-group-text i {
+	opacity: 1;
+}
+
+.list-group-item {
+	background: none;
+	border: none;
+}
+
+.alert-info code {
+	color: #fff;
+}
