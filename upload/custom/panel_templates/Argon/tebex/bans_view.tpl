@@ -9,11 +9,12 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_TEMPLATE}</h1>
+                <h1 class="text-white">{$VIEWING_BAN}</h1>
             </div>
         </div>
     </div>
 
+    <!-- Main content -->
     <div class="container-fluid mt--8">
         {if isset($NEW_UPDATE)}
         {if $NEW_UPDATE_URGENT eq true}
@@ -36,16 +37,14 @@
             <div class="card">
                 <div class="card-body">
                     <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
-                    {if $PERMISSIONS_LINK}<a class="btn btn-info" href="{$PERMISSIONS_LINK}">{$PERMISSIONS}</a>{/if}
-                    <hr />
+                    <hr/>
 
                     {if isset($SUCCESS)}
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}
-                            </h5>
+                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
                             {$SUCCESS}
                         </div>
                     {/if}
@@ -65,39 +64,41 @@
                         </div>
                     {/if}
 
-                    {if isset($DEFAULT_TEMPLATE_WARNING)}
-                        <div class="alert alert-warning">{$DEFAULT_TEMPLATE_WARNING}</div>
-                    {/if}
-
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            {if count($TEMPLATE_DIRS)}
-                                {foreach from=$TEMPLATE_DIRS item=dir}
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-folder"></i> {$dir.name}
-                                            <div class="float-right">
-                                                <a href="{$dir.link}" class="btn btn-info btn-sm"><i
-                                                            class="fas fa-search fa-fw"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {/foreach}
-                            {/if}
-                            {if count($TEMPLATE_FILES)}
-                                {foreach from=$TEMPLATE_FILES item=file}
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-file"></i> {$file.name}
-                                            <div class="float-right">
-                                                <a href="{$file.link}" class="btn btn-info btn-sm"><i
-                                                            class="fas fa-edit fa-fw"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {/foreach}
-                            {/if}
+                            <colgroup>
+                                <col span="1" style="width: 50%">
+                                <col span="1" style="width: 50%">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td><strong>{$IGN}</strong></td>
+                                <td><img src="{$AVATAR}" class="rounded" style="max-height:25px;max-width:25px;"
+                                         alt="{$IGN_VALUE}"> {$IGN_VALUE}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$UUID}</strong></td>
+                                <td>{$UUID_VALUE}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$IP_ADDRESS}</strong></td>
+                                <td>{$IP_ADDRESS_VALUE}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$REASON}</strong></td>
+                                <td>{$REASON_VALUE}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$DATE}</strong></td>
+                                <td>{$DATE_VALUE}</td>
+                            </tr>
+                            </tbody>
                         </table>
+                    </div>
+
+                    <br />
+                    <div class="alert alert-info">
+                        {$UNBAN_IN_BUYCRAFT}
                     </div>
 
                 </div>
@@ -106,9 +107,12 @@
             <!-- Spacing -->
             <div style="height:1rem;"></div>
 
+            {include file='footer.tpl'}
+
         </div>
-        {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

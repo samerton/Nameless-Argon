@@ -9,7 +9,7 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_WIDGET}</h1>
+                <h1 class="text-white">{$EDITING_CATEGORY}</h1>
             </div>
         </div>
     </div>
@@ -35,7 +35,6 @@
 
             <div class="card">
                 <div class="card-body">
-                    {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-info">{$SETTINGS}</a>{/if}
                     <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
                     <hr/>
 
@@ -44,8 +43,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}
-                            </h5>
+                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
                             {$SUCCESS}
                         </div>
                     {/if}
@@ -66,45 +64,34 @@
                     {/if}
 
                     <form action="" method="post">
-                        {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                            {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <input class="js-switch" type="checkbox" name="pages[]"
-                                                               id="{$page|escape}"
-                                                               value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                            {/if}
-                        {/foreach}
-
-                        <br/>
-
                         <div class="form-group">
-                            <label for="inputOrder">{$WIDGET_ORDER}</label>
-                            <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
+                            <strong><label for="inputDescription">{$CATEGORY_DESCRIPTION}</label></strong>
+                            <textarea id="inputDescription" name="description">{$CATEGORY_DESCRIPTION_VALUE}</textarea>
                         </div>
 
                         <div class="form-group">
                             <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-info" value="{$SUBMIT}">
+                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                        </div>
+                    </form>
+
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <strong>{$CATEGORY_IMAGE}</strong><br/>
+                            {if $CATEGORY_IMAGE_VALUE}
+                                <img src="{$CATEGORY_IMAGE_VALUE}" alt="{$CATEGORY_NAME}"
+                                     style="max-height:200px;max-width:200px;">
+                                <br/>
+                            {/if}
+                            <strong>{$UPLOAD_NEW_IMAGE}</strong><br/>
+                            <label class="btn btn-secondary">
+                                {$BROWSE} <input type="file" name="store_image" hidden/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="hidden" name="type" value="image">
+                            <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                         </div>
                     </form>
 
@@ -117,7 +104,9 @@
         </div>
 
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

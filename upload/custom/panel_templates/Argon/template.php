@@ -23,8 +23,8 @@ if(!class_exists('Argon_Panel_Template')){
 
 			parent::__construct(
 				'Argon',  // Template name
-				'1.0.0',  // Template version
-				'2.0.0-pr6',  // Nameless version template is made for
+				'1.1.0',  // Template version
+				'2.0.0-pr7',  // Nameless version template is made for
 				'<a href="https://namelessmc.com/">Samerton</a>'  // Author, you can use HTML here
 			);
 
@@ -618,6 +618,92 @@ if(!class_exists('Argon_Panel_Template')){
 						');
 
 						break;
+
+					case 'buycraft':
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => array()
+						));
+
+						$this->addJSScript(Input::createEditor('inputStoreContent', true));
+						$this->addJSScript('
+							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
+						
+							elems.forEach(function(html) {
+							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+							});
+						');
+						break;
+
+					case 'buycraft_bans':
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Argon/assets/css/dataTables.bootstrap4.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Argon/assets/js/dataTables.bootstrap4.min.js' => array()
+						));
+
+						$this->addJSScript('
+							$(document).ready(function() {
+								$(\'.dataTables-bans\').dataTable({
+									responsive: true,
+									language: {
+										"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+										"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+										"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+										"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+										"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+										"search": "' . $this->_language->get('general', 'search') . '",
+										"paginate": {
+										    "next": "&raquo;",
+										    "previous": "&laquo;"
+										}
+									}
+								});
+							});
+						');
+						break;
+
+					case 'buycraft_payments':
+						$this->addCSSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Argon/assets/css/dataTables.bootstrap4.min.css' => array()
+						));
+
+						$this->addJSFiles(array(
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+							(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Argon/assets/js/dataTables.bootstrap4.min.js' => array()
+						));
+
+						$this->addJSScript('
+							$(document).ready(function() {
+								$(\'.dataTables-payments\').dataTable({
+									responsive: true,
+									order: [[ 2, "desc" ]],
+									language: {
+										"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+										"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+										"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+										"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+										"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+										"search": "' . $this->_language->get('general', 'search') . '",
+										"paginate": {
+											"next": "&raquo;",
+											"previous": "&laquo;"
+										}
+									}
+								});
+							});
+						');
+						break;
 				}
 			}
 		}
@@ -625,3 +711,4 @@ if(!class_exists('Argon_Panel_Template')){
 }
 
 $template = new Argon_Panel_Template($cache, $smarty, $language, $user, $pages);
+define('TEMPLATE_BUYCRAFT_SUPPORT', true);

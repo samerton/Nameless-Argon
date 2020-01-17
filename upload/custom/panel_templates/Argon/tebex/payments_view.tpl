@@ -9,7 +9,7 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_WIDGET}</h1>
+                <h1 class="text-white">{$VIEWING_PAYMENT}</h1>
             </div>
         </div>
     </div>
@@ -35,8 +35,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-info">{$SETTINGS}</a>{/if}
-                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+                    <a class="btn btn-warning" href="{$BACK_LINK}">{$BACK}</a>
                     <hr/>
 
                     {if isset($SUCCESS)}
@@ -65,48 +64,34 @@
                         </div>
                     {/if}
 
-                    <form action="" method="post">
-                        {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                            {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <input class="js-switch" type="checkbox" name="pages[]"
-                                                               id="{$page|escape}"
-                                                               value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                            {/if}
-                        {/foreach}
-
-                        <br/>
-
-                        <div class="form-group">
-                            <label for="inputOrder">{$WIDGET_ORDER}</label>
-                            <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-info" value="{$SUBMIT}">
-                        </div>
-                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <colgroup>
+                                <col span="1" style="width: 50%">
+                                <col span="1" style="width: 50%">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td><strong>{$IGN}</strong></td>
+                                <td><img src="{$AVATAR}" class="rounded" style="max-height:32px;max-width:32px;"
+                                         alt="{$IGN_VALUE}"> <a style="{$STYLE}" href="{$USER_LINK}">{$IGN_VALUE}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$UUID}</strong></td>
+                                <td>{$UUID_VALUE}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$PRICE}</strong></td>
+                                <td>{$CURRENCY_SYMBOL}{$PRICE_VALUE} ({$CURRENCY_ISO})</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{$DATE}</strong></td>
+                                <td>{$DATE_VALUE}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>
@@ -117,7 +102,9 @@
         </div>
 
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

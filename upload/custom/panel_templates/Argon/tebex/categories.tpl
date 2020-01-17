@@ -9,7 +9,7 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_WIDGET}</h1>
+                <h1 class="text-white">{$CATEGORIES}</h1>
             </div>
         </div>
     </div>
@@ -35,17 +35,12 @@
 
             <div class="card">
                 <div class="card-body">
-                    {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-info">{$SETTINGS}</a>{/if}
-                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
-                    <hr/>
-
                     {if isset($SUCCESS)}
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}
-                            </h5>
+                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
                             {$SUCCESS}
                         </div>
                     {/if}
@@ -65,48 +60,42 @@
                         </div>
                     {/if}
 
-                    <form action="" method="post">
-                        {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                            {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <input class="js-switch" type="checkbox" name="pages[]"
-                                                               id="{$page|escape}"
-                                                               value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
+                    {if isset($NO_CATEGORIES)}
+                        <p>{$NO_CATEGORIES}</p>
+                    {else}
+                        {foreach from=$ALL_CATEGORIES item=category}
+                            <div class="card card-default">
+                                <div class="card-header">
+                                    {$category.name}
+                                    {if isset($category.edit_link)}
+                                        <span class="float-md-right">
+                                                    <a href="{$category.edit_link}" class="btn btn-info btn-sm"><i
+                                                                class="fas fa-pencil-alt"></i></a>
+                                                </span>
+                                    {/if}
                                 </div>
-                                <br />
-                            {/if}
+                                <div class="card-body">
+                                    {if isset($category.subcategories)}
+                                        {foreach from=$category.subcategories item=subcategory name=categories_loop}
+                                            {$subcategory.name}
+                                            {if isset($subcategory.edit_link)}
+                                                <span class="float-md-right">
+                                                            <a href="{$subcategory.edit_link}"
+                                                               class="btn btn-info btn-sm"><i
+                                                                        class="fas fa-pencil-alt"></i></a>
+                                                        </span>
+                                            {/if}
+                                            {if not $smarty.foreach.categories_loop.last}
+                                                <hr/>
+                                            {/if}
+                                        {/foreach}
+                                    {else}
+                                        {$category.no_subcategories}
+                                    {/if}
+                                </div>
+                            </div>
                         {/foreach}
-
-                        <br/>
-
-                        <div class="form-group">
-                            <label for="inputOrder">{$WIDGET_ORDER}</label>
-                            <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-info" value="{$SUBMIT}">
-                        </div>
-                    </form>
+                    {/if}
 
                 </div>
             </div>
@@ -117,7 +106,9 @@
         </div>
 
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

@@ -9,7 +9,7 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_WIDGET}</h1>
+                <h1 class="text-white">{$BUYCRAFT}</h1>
             </div>
         </div>
     </div>
@@ -35,10 +35,6 @@
 
             <div class="card">
                 <div class="card-body">
-                    {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-info">{$SETTINGS}</a>{/if}
-                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
-                    <hr/>
-
                     {if isset($SUCCESS)}
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -66,45 +62,35 @@
                     {/if}
 
                     <form action="" method="post">
-                        {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                            {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <input class="js-switch" type="checkbox" name="pages[]"
-                                                               id="{$page|escape}"
-                                                               value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                            {/if}
-                        {/foreach}
-
-                        <br/>
+                        <div class="form-group">
+                            <label for="inputSecretKey">{$SERVER_KEY}</label>
+                            <span class="badge badge-info" data-html="true" data-toggle="popover" title="{$INFO}"
+                                  data-content="{$SERVER_KEY_INFO}"><i class="fas fa-question-circle"></i></span>
+                            <input id="inputSecretKey" name="server_key" class="form-control"
+                                   placeholder="{$SERVER_KEY}" value="{$SERVER_KEY_VALUE}">
+                        </div>
 
                         <div class="form-group">
-                            <label for="inputOrder">{$WIDGET_ORDER}</label>
-                            <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
+                            <label for="inputAllowGuests">{$ALLOW_GUESTS}</label>
+                            <input type="checkbox" name="allow_guests" id="inputAllowGuests"
+                                   class="js-switch" {if $ALLOW_GUESTS_VALUE} checked{/if} />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputStorePath">{$STORE_PATH}</label>
+                            <input type="text" class="form-control" id="inputStorePath" name="store_path"
+                                   placeholder="{$STORE_PATH}" value="{$STORE_PATH_VALUE}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputStoreContent">{$STORE_INDEX_CONTENT}</label>
+                            <textarea id="inputStoreContent"
+                                      name="store_content">{$STORE_INDEX_CONTENT_VALUE}</textarea>
                         </div>
 
                         <div class="form-group">
                             <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-info" value="{$SUBMIT}">
+                            <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                         </div>
                     </form>
 
@@ -117,7 +103,9 @@
         </div>
 
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

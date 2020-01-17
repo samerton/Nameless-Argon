@@ -9,7 +9,7 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_WIDGET}</h1>
+                <h1 class="text-white">{$VIEWING_PAYMENTS_FOR_USER}</h1>
             </div>
         </div>
     </div>
@@ -35,8 +35,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-info">{$SETTINGS}</a>{/if}
-                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+                    <a class="btn btn-warning" href="{$BACK_LINK}">{$BACK}</a>
                     <hr/>
 
                     {if isset($SUCCESS)}
@@ -65,48 +64,35 @@
                         </div>
                     {/if}
 
-                    <form action="" method="post">
-                        {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                            {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <input class="js-switch" type="checkbox" name="pages[]"
-                                                               id="{$page|escape}"
-                                                               value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                            {/if}
-                        {/foreach}
-
-                        <br/>
-
-                        <div class="form-group">
-                            <label for="inputOrder">{$WIDGET_ORDER}</label>
-                            <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
+                    {if isset($NO_PAYMENTS)}
+                        <p>{$NO_PAYMENTS}</p>
+                    {else}
+                        <div class="table-responsive">
+                            <table class="table table-striped dataTables-payments">
+                                <thead>
+                                <tr>
+                                    <th>{$USER}</th>
+                                    <th>{$AMOUNT}</th>
+                                    <th>{$DATE}</th>
+                                    <th>{$VIEW}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach from=$USER_PAYMENTS item=payment}
+                                    <tr>
+                                        <td><a href="{$payment.user_link}" style="{$payment.user_style}"><img
+                                                        src="{$payment.user_avatar}" class="rounded"
+                                                        style="max-width:32px;max-height:32px;"
+                                                        alt="{$payment.username}"/> {$payment.username}</a></td>
+                                        <td>{$payment.currency_symbol}{$payment.amount}</td>
+                                        <td data-sort="{$payment.date_unix}">{$payment.date}</td>
+                                        <td><a href="{$payment.link}" class="btn btn-primary btn-sm">{$VIEW}</a></td>
+                                    </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
                         </div>
-
-                        <div class="form-group">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-info" value="{$SUBMIT}">
-                        </div>
-                    </form>
+                    {/if}
 
                 </div>
             </div>
@@ -117,7 +103,9 @@
         </div>
 
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

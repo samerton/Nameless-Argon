@@ -124,6 +124,14 @@
                             <input type="hidden" name="privateProfile" value="0">
                         {/if}
                         <div class="form-group">
+                            <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
+                            <select name="template" class="form-control" id="inputTemplate">
+                                {foreach from=$TEMPLATES item=template}
+                                    <option value="{$template.id}"{if $template.active eq true} selected{/if}>{$template.name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="InputSignature">{$SIGNATURE}</label>
                             <textarea style="width:100%" rows="10" name="signature"
                                       id="InputSignature">{$SIGNATURE_VALUE}</textarea>
@@ -150,7 +158,7 @@
                                 {$SECONDARY_GROUPS_INFO}
                             </div>
                             <select class="form-control" name="secondary_groups[]" id="inputSecondaryGroups"
-                                    multiple{if isset($CANT_EDIT_GROUP)} disabled{/if}>
+                                    multiple>
                                 {foreach from=$ALL_GROUPS item=item}
                                     {if $item->id neq $GROUP_ID}
                                         <option value="{$item->id}"{if in_array($item->id, $SECONDARY_GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>

@@ -9,7 +9,7 @@
     <div class="header bg-gradient-primary pb-9 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
-                <h1 class="text-white">{$EDITING_WIDGET}</h1>
+                <h1 class="text-white">{$CREATING_GIFT_CARD}</h1>
             </div>
         </div>
     </div>
@@ -35,8 +35,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {if isset($SETTINGS)}<a href="{$SETTINGS_LINK}" class="btn btn-info">{$SETTINGS}</a>{/if}
-                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+                    <button role="button" class="btn btn-warning" onclick="showCancelModal()">{$CANCEL}</button>
                     <hr/>
 
                     {if isset($SUCCESS)}
@@ -44,8 +43,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}
-                            </h5>
+                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
                             {$SUCCESS}
                         </div>
                     {/if}
@@ -66,45 +64,23 @@
                     {/if}
 
                     <form action="" method="post">
-                        {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                            {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}" style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <input class="js-switch" type="checkbox" name="pages[]"
-                                                               id="{$page|escape}"
-                                                               value="{$page|escape}"{if in_array($page, $ACTIVE_PAGES)} checked{/if} >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                            {/if}
-                        {/foreach}
-
-                        <br/>
-
                         <div class="form-group">
-                            <label for="inputOrder">{$WIDGET_ORDER}</label>
-                            <input id="inputOrder" name="order" type="number" class="form-control" value="{$ORDER}">
+                            <label for="inputValue">{$GIFT_CARD_VALUE}</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">{$CURRENCY}</span>
+                                </div>
+                                <input type="number" class="form-control" id="inputValue" name="amount"
+                                       placeholder="{$GIFT_CARD_VALUE}" step="0.01">
+                            </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="inputNote">{$GIFT_CARD_NOTE}</label> <small>{$OPTIONAL}</small>
+                            <textarea class="form-control" id="inputNote" name="note"></textarea>
+                        </div>
                         <div class="form-group">
                             <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-info" value="{$SUBMIT}">
+                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                         </div>
                     </form>
 
@@ -116,10 +92,38 @@
 
         </div>
 
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {$CONFIRM_CANCEL}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                        <a href="{$CANCEL_LINK}" class="btn btn-primary">{$YES}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
+
+    <script type="text/javascript">
+        function showCancelModal() {
+            $('#cancelModal').modal().show();
+        }
+    </script>
 
 </body>
 </html>

@@ -1,7 +1,6 @@
 {include file='header.tpl'}
 <body>
 {include file='sidebar.tpl'}
-
 <div class="main-content">
     {include file='navbar.tpl'}
 
@@ -35,8 +34,10 @@
 
             <div class="card">
                 <div class="card-body">
-                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+
                     {if $PERMISSIONS_LINK}<a class="btn btn-info" href="{$PERMISSIONS_LINK}">{$PERMISSIONS}</a>{/if}
+                    <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
+
                     <hr />
 
                     {if isset($SUCCESS)}
@@ -44,8 +45,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}
-                            </h5>
+                            <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
                             {$SUCCESS}
                         </div>
                     {/if}
@@ -65,40 +65,9 @@
                         </div>
                     {/if}
 
-                    {if isset($DEFAULT_TEMPLATE_WARNING)}
-                        <div class="alert alert-warning">{$DEFAULT_TEMPLATE_WARNING}</div>
+                    {if isset($SETTINGS_TEMPLATE)}
+                        {include file=$SETTINGS_TEMPLATE}
                     {/if}
-
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            {if count($TEMPLATE_DIRS)}
-                                {foreach from=$TEMPLATE_DIRS item=dir}
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-folder"></i> {$dir.name}
-                                            <div class="float-right">
-                                                <a href="{$dir.link}" class="btn btn-info btn-sm"><i
-                                                            class="fas fa-search fa-fw"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {/foreach}
-                            {/if}
-                            {if count($TEMPLATE_FILES)}
-                                {foreach from=$TEMPLATE_FILES item=file}
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-file"></i> {$file.name}
-                                            <div class="float-right">
-                                                <a href="{$file.link}" class="btn btn-info btn-sm"><i
-                                                            class="fas fa-edit fa-fw"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {/foreach}
-                            {/if}
-                        </table>
-                    </div>
 
                 </div>
             </div>
@@ -107,8 +76,11 @@
             <div style="height:1rem;"></div>
 
         </div>
+
         {include file='footer.tpl'}
+
     </div>
+    <!-- ./wrapper -->
 
     {include file='scripts.tpl'}
 

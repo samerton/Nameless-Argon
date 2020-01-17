@@ -174,7 +174,7 @@
 
                     <br />
 
-                    <a href="{$VIEW_ALL_TEMPLATES_LINK}" class="btn btn-info" target="_blank">{$VIEW_ALL_TEMPLATES}
+                    <a href="{$VIEW_ALL_PANEL_TEMPLATES_LINK}" class="btn btn-info" target="_blank">{$VIEW_ALL_PANEL_TEMPLATES}
                         &raquo;</a>
 
                 </div>

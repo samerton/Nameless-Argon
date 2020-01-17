@@ -135,6 +135,11 @@
                             <input id="inputStatusQueryEnabled" name="status_query_enabled" type="checkbox"
                                    class="js-switch" value="1"{if $ENABLE_STATUS_QUERY_VALUE} checked{/if} />
                         </div>
+                        <div class="form-group">
+                            <label for="inputShowIPOnStatus">{$SHOW_IP_ON_STATUS_PAGE}</label> <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" data-html="true" title="{$INFO}" data-content="{$SHOW_IP_ON_STATUS_PAGE_INFO}"></i></span>
+                            <input type="hidden" name="show_ip_enabled" value="0">
+                            <input id="inputShowIPOnStatus" name="show_ip_enabled" type="checkbox" class="js-switch" value="1"{if $SHOW_IP_ON_STATUS_PAGE_VALUE} checked{/if} />
+                        </div>
                         {if isset($SERVER_QUERY_INFORMATION)}
                             <div class="alert alert-info">
                                 <h5 class="h3 mb-0" style="color: white;"><i class="icon fa fa-info-circle"></i> {$INFO}
